@@ -1,0 +1,8 @@
+<h3>Ajouter un coach</h3>
+<form (ngSubmit)="onSubmit()">
+  <input name="name" [(ngModel)]="coach.name" placeholder="Nom" required /><br />
+  <input name="specialty" [(ngModel)]="coach.specialty" placeholder="Spécialité" required /><br />
+  <input name="email" [(ngModel)]="coach.email" placeholder="Email" required /><br />
+  <input type="password" name="password" [(ngModel)]="coach.password" placeholder="Mot de passe" required /><br />
+  <button type="submit">Ajouter</button>
+</form>

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<!-- ✅ Utilise .NET 8 (stable) -->
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- ✅ EF Core -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.13" />
+
+		<!-- ✅ Tools EF (UNE SEULE FOIS) -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.13">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+
+		<!-- ✅ Design -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.13">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+
+		<!-- ✅ Swagger -->
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.5" />
+	</ItemGroup>
+
+</Project>

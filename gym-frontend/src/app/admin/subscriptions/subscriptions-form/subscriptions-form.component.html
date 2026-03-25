@@ -1,0 +1,10 @@
+<h3>Ajouter un abonnement</h3>
+<form (ngSubmit)="onSubmit()">
+  <input name="member" [(ngModel)]="subscription.member" placeholder="Nom du membre" required /><br />
+  <select name="type" [(ngModel)]="subscription.type" required>
+    <option value="">Choisir type</option>
+    <option value="Mensuel">Mensuel</option>
+    <option value="Annuel">Annuel</option>
+  </select><br />
+  <button type="submit">Ajouter</button>
+</form>

@@ -1,0 +1,14 @@
+<h2>Connexion</h2>
+
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <input type="email" name="email" [(ngModel)]="credentials.email" placeholder="Email" required /><br />
+  <input type="password" name="password" [(ngModel)]="credentials.password" placeholder="Mot de passe" required /><br />
+  <button type="submit" [disabled]="!loginForm.valid || isLoading">
+    <span *ngIf="!isLoading">Se connecter</span>
+    <span *ngIf="isLoading">Connexion...</span>
+  </button>
+</form>
+
+<div *ngIf="message" [class.error]="isError" style="margin-top:12px;color:var(--error,#b00020)">
+  {{ message }}
+</div>

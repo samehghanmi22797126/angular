@@ -1,0 +1,14 @@
+﻿namespace sale_sport.Models;
+
+public class Member
+{
+	public int Id { get; set; }
+	public string Name { get; set; } = "";
+	public int Age { get; set; }
+
+	public int SubscriptionId { get; set; }
+	public Subscription Subscription { get; set; } = null!;
+
+	// Courses the member is registered to (many-to-many)
+	public ICollection<Course> Courses { get; set; } = new List<Course>();
+}

@@ -1,0 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using sale_sport.Models;
+
+namespace sale_sport.Data;
+
+public class GymDbContext : DbContext
+{
+	public GymDbContext(DbContextOptions<GymDbContext> options) : base(options) { }
+
+	public DbSet<Member> Members => Set<Member>();
+	public DbSet<Coach> Coaches => Set<Coach>();
+	public DbSet<Subscription> Subscriptions => Set<Subscription>();
+    public DbSet<Course> Courses => Set<Course>();
+	public DbSet<Admin> Admins => Set<Admin>();
+}

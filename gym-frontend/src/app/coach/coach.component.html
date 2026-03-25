@@ -1,0 +1,42 @@
+<h2>Espace Coach</h2>
+
+<!-- ================= MEMBRES ================= -->
+<h3>Gestion des Membres</h3>
+
+<form (ngSubmit)="saveMember()">
+  <input type="text" [(ngModel)]="currentMember.name" name="name" placeholder="Nom" required />
+  <input type="email" [(ngModel)]="currentMember.email" name="email" placeholder="Email" required />
+
+  <button type="submit">
+    {{ isEditMember ? 'Modifier' : 'Ajouter' }}
+  </button>
+</form>
+
+<ul>
+  <li *ngFor="let m of members">
+    {{ m.name }} ({{ m.email }})
+    <button (click)="editMember(m)">Modifier</button>
+    <button (click)="deleteMember(m.id)">Supprimer</button>
+  </li>
+</ul>
+
+<hr>
+
+<!-- ================= COURS ================= -->
+<h3>Gestion des Cours</h3>
+
+<form (ngSubmit)="saveCourse()">
+  <input type="text" [(ngModel)]="currentCourse.name" name="courseName" placeholder="Nom du cours" required />
+
+  <button type="submit">
+    {{ isEditCourse ? 'Modifier' : 'Ajouter' }}
+  </button>
+</form>
+
+<ul>
+  <li *ngFor="let c of courses">
+    {{ c.name }}
+    <button (click)="editCourse(c)">Modifier</button>
+    <button (click)="deleteCourse(c.id)">Supprimer</button>
+  </li>
+</ul>

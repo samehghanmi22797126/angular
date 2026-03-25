@@ -1,0 +1,5 @@
+<h2>Liste des Membres</h2>
+<ul>
+  <li *ngFor="let member of members">{{ member.name }} - {{ member.email }}</li>
+</ul>
+<a routerLink="/admin/members/new">Ajouter un membre</a>

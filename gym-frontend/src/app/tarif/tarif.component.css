@@ -1,0 +1,105 @@
+/* Container principal */
+.tarif {
+  min-height: 80vh;
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  /* Optionnel : image de fond */
+  background-image: url('/assets/tarif-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+  /* Overlay sombre */
+  .tarif::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 1;
+  }
+
+  .tarif > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Titres */
+  .tarif h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+
+  .tarif p {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+/* Cartes des tarifs */
+.tarif-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.tarif-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  width: 280px;
+  border-radius: 15px;
+  transition: transform 0.3s, background 0.3s;
+  text-align: center;
+}
+
+  .tarif-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255,255,255,0.2);
+  }
+
+  .tarif-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .tarif-card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+.price {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #27ae60;
+}
+
+.tarif-card button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #27ae60;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+  .tarif-card button:hover {
+    background-color: #1e8449;
+  }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .tarif-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}

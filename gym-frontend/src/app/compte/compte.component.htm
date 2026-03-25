@@ -1,0 +1,21 @@
+<div class="compte-container">
+  <h1>Bienvenue sur votre compte</h1>
+
+  <div *ngIf="role === 'Member'">
+    <h2>Section Membre</h2>
+    <p>Voir vos réservations, vos activités et votre profil.</p>
+    <button routerLink="/activite">Voir les activités</button>
+  </div>
+
+  <div *ngIf="role === 'Coach'">
+    <h2>Section Coach</h2>
+    <p>Gérer vos séances et vos clients.</p>
+    <button routerLink="/activite">Gérer les activités</button>
+  </div>
+
+  <div *ngIf="role === 'Admin'">
+    <h2>Section Admin</h2>
+    <p>Gérer les utilisateurs, tarifs et offres.</p>
+    <button routerLink="/admin">Aller à l’admin</button>
+  </div>
+</div>

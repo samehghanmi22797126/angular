@@ -1,0 +1,11 @@
+.home-test {
+  text-align: center;
+  margin-top: 100px;
+  font-family: Arial, sans-serif;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}

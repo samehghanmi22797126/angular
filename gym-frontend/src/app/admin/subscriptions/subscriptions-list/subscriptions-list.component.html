@@ -1,0 +1,13 @@
+<h3>Liste des abonnements</h3>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Membre</th>
+    <th>Type</th>
+  </tr>
+  <tr *ngFor="let sub of subscriptions">
+    <td>{{sub.id}}</td>
+    <td>{{sub.member}}</td>
+    <td>{{sub.type}}</td>
+  </tr>
+</table>

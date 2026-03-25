@@ -1,0 +1,47 @@
+.offres {
+  min-height: 80vh;
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #1976d2, #42a5f5);
+  color: white;
+}
+
+  .offres h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+
+  .offres p {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+.offres-list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.offre-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  padding: 25px 20px;
+  width: 250px;
+  border-radius: 15px;
+  transition: transform 0.3s;
+}
+
+  .offre-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .offre-card h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .offre-card p {
+    font-size: 16px;
+  }

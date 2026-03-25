@@ -1,0 +1,8 @@
+﻿namespace sale_sport.Models;
+
+public class Coach
+{
+	public int Id { get; set; }
+	public string Name { get; set; } = "";
+	public string Specialty { get; set; } = "";
+}

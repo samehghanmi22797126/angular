@@ -1,0 +1,29 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Data;
+using Models;
+
+namespace Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class MembersController : ControllerBase
+{
+	private readonly GymDbContext _context;
+	public MembersController(GymDbContext context) => _context = context;
+
+	[HttpGet]
+	public async Task<IActionResult> GetAll() =>
+		Ok(await _context.Members.Include(m => m.Subscription).ToListAsync());
+
+	[HttpPost]
+	public async Task<IActionResult> Add(Member member)
+	{
+		var sub = await _context.Subscriptions.FindAsync(member.SubscriptionId);
+		if (sub == null) return BadRequest("Abonnement introuvable");
+
+		_context.Members.Add(member);
+		await _context.SaveChangesAsync();
+		return CreatedAtAction(nameof(GetAll), new { id = member.Id }, member);
+	}
+}

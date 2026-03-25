@@ -1,0 +1,25 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Data;
+using Models;
+
+namespace Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class SubscriptionsController : ControllerBase
+{
+	private readonly GymDbContext _context;
+	public SubscriptionsController(GymDbContext context) => _context = context;
+
+	[HttpGet]
+	public async Task<IActionResult> GetAll() => Ok(await _context.Subscriptions.ToListAsync());
+
+	[HttpPost]
+	public async Task<IActionResult> Add(Subscription sub)
+	{
+		_context.Subscriptions.Add(sub);
+		await _context.SaveChangesAsync();
+		return CreatedAtAction(nameof(GetAll), new { id = sub.Id }, sub);
+	}
+}

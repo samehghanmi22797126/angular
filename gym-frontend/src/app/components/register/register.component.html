@@ -1,0 +1,50 @@
+<h2>Inscription</h2>
+
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+  <input type="text"
+         name="name"
+         [(ngModel)]="user.name"
+         placeholder="Nom"
+         required />
+
+  <br />
+  <input type="text"
+         name="age"
+         [(ngModel)]="user.age"
+         placeholder="age"
+         required />
+
+  <br />
+
+  <input type="email"
+         name="email"
+         [(ngModel)]="user.email"
+         placeholder="Email"
+         required />
+
+  <br />
+
+  <input type="password"
+         name="password"
+         [(ngModel)]="user.password"
+         placeholder="Mot de passe"
+         required />
+
+  <br />
+
+  <!-- Choix du rôle -->
+  <select name="role" [(ngModel)]="user.role" required>
+    <option value="">Choisir un rôle</option>
+    <option value="admin">Admin</option>
+    <option value="member">Membre</option>
+    <option value="coach">Coach</option>
+  </select>
+
+  <br /><br />
+
+  <button type="submit" [disabled]="!registerForm.valid">
+    S'inscrire
+  </button>
+
+</form>

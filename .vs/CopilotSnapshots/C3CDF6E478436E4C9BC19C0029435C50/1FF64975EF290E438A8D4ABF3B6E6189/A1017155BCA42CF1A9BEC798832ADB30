@@ -1,0 +1,25 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Data;
+using Models;
+
+namespace Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AdminsController : ControllerBase
+{
+	private readonly GymDbContext _context;
+	public AdminsController(GymDbContext context) => _context = context;
+
+	[HttpGet]
+	public async Task<IActionResult> GetAll() => Ok(await _context.Admins.ToListAsync());
+
+	[HttpPost]
+	public async Task<IActionResult> Add(Admin admin)
+	{
+		_context.Admins.Add(admin);
+		await _context.SaveChangesAsync();
+		return CreatedAtAction(nameof(GetAll), new { id = admin.Id }, admin);
+	}
+}
