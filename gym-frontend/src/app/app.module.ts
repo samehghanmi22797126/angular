@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -17,6 +17,8 @@ import { CompteComponent } from './compte/compte.component';
 import { ActiviteComponent } from './activite/activite.component';
 import { TarifComponent } from './tarif/tarif.component';
 import { OffresComponent } from './offres/offres.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { MemberComponent } from './member/member.component';
 
 @NgModule({
   declarations: [
@@ -32,15 +34,18 @@ import { OffresComponent } from './offres/offres.component';
     CompteComponent,
     ActiviteComponent,
     TarifComponent,
-    OffresComponent
-    // Supprime AdminComponent ici !
+    OffresComponent,
+    ChatbotComponent,
+    MemberComponent
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
-    // AdminModule sera lazy loaded via routing
+
   ],
   providers: [],
   bootstrap: [AppComponent]

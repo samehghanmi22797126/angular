@@ -1,50 +1,50 @@
+// src/app/coach/coach.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+export interface Member {
+  id?: number;
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  coachId: number;
+  subscriptionId: number;
+}
+
+export interface Course {
+  id?: number;
+  title: string;
+  description: string;
+  startAt: string;
+  durationMinutes: number;
+  coachId: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoachService {
-
-  private apiUrlMembers = 'http://localhost:5280/api/members';
-  private apiUrlCourses = 'http://localhost:5280/api/courses';
+  private apiUrl = 'http://localhost:5280/api'; // URL de ton API
 
   constructor(private http: HttpClient) { }
 
-  // ================= MEMBERS =================
-
-  createMember(member: any): Observable<any> {
-    return this.http.post(this.apiUrlMembers, member);
+  // Membres
+  getMembers(): Observable<Member[]> {
+    return this.http.get<Member[]>(`${this.apiUrl}/Members`);
   }
 
-  updateMember(member: any): Observable<any> {
-    return this.http.put(`${this.apiUrlMembers}/${member.id}`, member);
+  addMember(member: Member): Observable<Member> {
+    return this.http.post<Member>(`${this.apiUrl}/Members`, member);
   }
 
-  deleteMember(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrlMembers}/${id}`);
+  // Cours
+  getCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(`${this.apiUrl}/Courses`);
   }
 
-  getMembersByCoach(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrlMembers}/byCoach/${id}`);
-  }
-
-  // ================= COURSES =================
-
-  createCourse(course: any): Observable<any> {
-    return this.http.post(this.apiUrlCourses, course);
-  }
-
-  updateCourse(course: any): Observable<any> {
-    return this.http.put(`${this.apiUrlCourses}/${course.id}`, course);
-  }
-
-  deleteCourse(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrlCourses}/${id}`);
-  }
-
-  getCoursesByCoach(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrlCourses}/byCoach/${id}`);
+  addCourse(course: Course): Observable<Course> {
+    return this.http.post<Course>(`${this.apiUrl}/Courses`, course);
   }
 }

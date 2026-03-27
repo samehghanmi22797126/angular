@@ -1,99 +1,74 @@
+// src/app/coach/coach.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CoachService } from './coach.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CoachService, Member, Course } from './coach.service';
 
 @Component({
   selector: 'app-coach',
-  templateUrl: './coach.component.html'
+  templateUrl: './coach.component.html',
+  styleUrls: ['./coach.component.css']
 })
 export class CoachComponent implements OnInit {
 
-  coachId = 1; // temporaire
+  memberForm!: FormGroup;
+  courseForm!: FormGroup;
 
-  members: any[] = [];
-  courses: any[] = [];
+  members: Member[] = [];
+  courses: Course[] = [];
 
-  currentMember: any = { name: '', email: '' };
-  currentCourse: any = { name: '' };
-
-  isEditMember = false;
-  isEditCourse = false;
-
-  constructor(private coachService: CoachService) { }
+  constructor(private fb: FormBuilder, private coachService: CoachService) { }
 
   ngOnInit(): void {
+    
+    this.memberForm = this.fb.group({
+      name: ['', Validators.required],
+      age: [0, Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      coachId: [1, Validators.required],
+      subscriptionId: [1, Validators.required]
+    });
+
+    this.courseForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      startAt: ['', Validators.required],
+      durationMinutes: [0, Validators.required],
+      coachId: [1, Validators.required]
+    });
+
+   
     this.loadMembers();
     this.loadCourses();
   }
 
-  // ================= MEMBERS =================
-
   loadMembers() {
-    this.coachService.getMembersByCoach(this.coachId).subscribe(data => this.members = data as any[]);
+    this.coachService.getMembers().subscribe((data: Member[]) => {
+      this.members = data;
+    });
   }
-
-  saveMember() {
-    this.currentMember.coachId = this.coachId;
-
-    if (this.isEditMember) {
-      this.coachService.updateMember(this.currentMember).subscribe(() => {
-        this.loadMembers();
-        this.resetMember();
-      });
-    } else {
-      this.coachService.createMember(this.currentMember).subscribe(() => {
-        this.loadMembers();
-        this.resetMember();
-      });
-    }
-  }
-
-  editMember(m: any) {
-    this.currentMember = { ...m };
-    this.isEditMember = true;
-  }
-
-  deleteMember(id: number) {
-    this.coachService.deleteMember(id).subscribe(() => this.loadMembers());
-  }
-
-  resetMember() {
-    this.currentMember = { name: '', email: '' };
-    this.isEditMember = false;
-  }
-
-  // ================= COURSES =================
 
   loadCourses() {
-    this.coachService.getCoursesByCoach(this.coachId).subscribe(data => this.courses = data as any[]);
+    this.coachService.getCourses().subscribe((data: Course[]) => {
+      this.courses = data;
+    });
   }
 
-  saveCourse() {
-    this.currentCourse.coachId = this.coachId;
-
-    if (this.isEditCourse) {
-      this.coachService.updateCourse(this.currentCourse).subscribe(() => {
-        this.loadCourses();
-        this.resetCourse();
-      });
-    } else {
-      this.coachService.createCourse(this.currentCourse).subscribe(() => {
-        this.loadCourses();
-        this.resetCourse();
+  addMember() {
+    if (this.memberForm.valid) {
+      this.coachService.addMember(this.memberForm.value).subscribe(() => {
+        this.memberForm.reset({ coachId: 1, subscriptionId: 1 });
+        this.loadMembers(); 
       });
     }
   }
 
-  editCourse(c: any) {
-    this.currentCourse = { ...c };
-    this.isEditCourse = true;
-  }
-
-  deleteCourse(id: number) {
-    this.coachService.deleteCourse(id).subscribe(() => this.loadCourses());
-  }
-
-  resetCourse() {
-    this.currentCourse = { name: '' };
-    this.isEditCourse = false;
+  addCourse() {
+    if (this.courseForm.valid) {
+      this.coachService.addCourse(this.courseForm.value).subscribe(() => {
+        this.courseForm.reset({ coachId: 1 });
+        this.loadCourses(); 
+      });
+    }
   }
 }

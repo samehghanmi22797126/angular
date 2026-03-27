@@ -1,16 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../services/admin.service';
+import { MemberService, Member } from '../../services/member.service';
 
 @Component({
   selector: 'app-members-list',
   templateUrl: './members-list.component.html'
 })
 export class MembersListComponent implements OnInit {
-  members: any[] = [];
 
-  constructor(private adminService: AdminService) { }
+  members: Member[] = [];
+
+  constructor(private memberService: MemberService) { }
 
   ngOnInit(): void {
-    this.adminService.getMembers().subscribe(data => this.members = data);
+    this.loadMembers();
+  }
+
+  loadMembers() {
+    this.memberService.getMembers().subscribe({
+      next: (data: Member[]) => this.members = data,
+      error: (err: any) => console.error(err)
+    });
   }
 }

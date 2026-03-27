@@ -1,20 +1,31 @@
 import { Component } from '@angular/core';
-import { AdminService } from '../../services/admin.service';
 import { Router } from '@angular/router';
+import { MemberService, Member } from '../../services/member.service';
 
 @Component({
   selector: 'app-members-form',
   templateUrl: './members-form.component.html'
 })
 export class MembersFormComponent {
-  member = { name: '', email: '', age: 0, password: '', subscriptionId: null };
 
-  constructor(private adminService: AdminService, private router: Router) { }
+  member: Member = {
+    name: '',
+    email: '',
+    age: 0,
+    password: '',
+    subscriptionId: 0, // ou null si autorisé
+    coachId: 0
+  };
 
-  save() {
-    this.adminService.createMember(this.member).subscribe(() => {
-      alert('Membre créé');
-      this.router.navigate(['/admin/members']);
+  constructor(private memberService: MemberService,
+    private router: Router) { }
+
+  submit() {
+    this.memberService.createMember(this.member).subscribe({
+      next: () => {
+        this.router.navigate(['/admin/members']);
+      },
+      error: (err: any) => console.error(err)
     });
   }
 }

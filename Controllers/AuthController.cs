@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using sale_sport.Data;
 using sale_sport.Models;
+using System.Linq;
 
 namespace sale_sport.Controllers
 {
@@ -15,21 +16,17 @@ namespace sale_sport.Controllers
 			_context = context;
 		}
 
-		// LOGIN
 		[HttpPost("login")]
 		public IActionResult Login([FromBody] Login login)
 		{
-			// Vérifier Admin
 			var admin = _context.Admins.FirstOrDefault(a => a.Email == login.Email && a.Password == login.Password);
 			if (admin != null)
 				return Ok(new { admin.Id, admin.Name, admin.Email, Role = "Admin" });
 
-			// Vérifier Member
 			var member = _context.Members.FirstOrDefault(m => m.Email == login.Email && m.Password == login.Password);
 			if (member != null)
 				return Ok(new { member.Id, member.Name, member.Email, Role = "Member" });
 
-			// Vérifier Coach
 			var coach = _context.Coaches.FirstOrDefault(c => c.Email == login.Email && c.Password == login.Password);
 			if (coach != null)
 				return Ok(new { coach.Id, coach.Name, coach.Email, Role = "Coach" });
@@ -37,15 +34,12 @@ namespace sale_sport.Controllers
 			return Unauthorized("Email ou mot de passe incorrect");
 		}
 
-		// REGISTER
 		[HttpPost("register")]
 		public IActionResult Register([FromBody] RegisterDto dto)
 		{
-			// Validation basique
 			if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password))
 				return BadRequest("Email et mot de passe requis");
 
-			// Vérifier si l'email existe déjà dans tous les types d'utilisateurs
 			if (_context.Admins.Any(a => a.Email == dto.Email) ||
 				_context.Members.Any(m => m.Email == dto.Email) ||
 				_context.Coaches.Any(c => c.Email == dto.Email))
@@ -55,12 +49,7 @@ namespace sale_sport.Controllers
 
 			if (role == "admin")
 			{
-				var admin = new Admin
-				{
-					Name = dto.Name ?? "",
-					Email = dto.Email,
-					Password = dto.Password
-				};
+				var admin = new Admin { Name = dto.Name ?? "", Email = dto.Email, Password = dto.Password };
 				_context.Admins.Add(admin);
 				_context.SaveChanges();
 				return Ok(new { admin.Id, admin.Name, admin.Email, Role = "Admin" });
@@ -68,26 +57,23 @@ namespace sale_sport.Controllers
 
 			if (role == "coach")
 			{
-				var coach = new Coach
-				{
-					Name = dto.Name ?? "",
-					Specialty = dto.Specialty ?? "",
-					Email = dto.Email,
-					Password = dto.Password
-				};
+				var coach = new Coach { Name = dto.Name ?? "", Specialty = dto.Specialty ?? "", Email = dto.Email, Password = dto.Password };
 				_context.Coaches.Add(coach);
 				_context.SaveChanges();
 				return Ok(new { coach.Id, coach.Name, coach.Email, Role = "Coach" });
 			}
 
-			// Default: créer un membre
+			// Member
+			if (dto.SubscriptionId == null)
+				return BadRequest("SubscriptionId requis pour le membre");
+
 			var member = new Member
 			{
 				Name = dto.Name ?? "",
 				Age = dto.Age ?? 0,
 				Email = dto.Email,
 				Password = dto.Password,
-				SubscriptionId = dto.SubscriptionId
+				SubscriptionId = dto.SubscriptionId.Value
 			};
 			_context.Members.Add(member);
 			_context.SaveChanges();

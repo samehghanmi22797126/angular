@@ -10,6 +10,8 @@ import { CoachComponent } from './coach/coach.component';
 import { CompteComponent } from './compte/compte.component';
 import { ActiviteComponent } from './activite/activite.component';
 import { TarifComponent } from './tarif/tarif.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { MemberComponent } from './member/member.component';
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'about', component: AboutComponent },
@@ -20,11 +22,14 @@ const routes: Routes = [
   { path: 'activite', component: ActiviteComponent },
   { path: 'offres', component: OffresComponent },
   { path: 'tarif', component: TarifComponent },
-  { path: '**', component: NotFoundComponent },
+  { path: 'chatbot', component: ChatbotComponent },
+  { path: 'member', component: MemberComponent },
+  
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
+  { path: '**', component: NotFoundComponent },
 
   { path: '**', redirectTo: '' }
 ];

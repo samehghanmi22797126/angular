@@ -1,42 +1,35 @@
-<h2>Espace Coach</h2>
+<div class="container">
 
-<!-- ================= MEMBRES ================= -->
-<h3>Gestion des Membres</h3>
+  <h2>Membres</h2>
+  <form [formGroup]="memberForm" (ngSubmit)="addMember()">
+    <input formControlName="name" placeholder="Nom">
+    <input formControlName="age" type="number" placeholder="Age">
+    <input formControlName="email" placeholder="Email">
+    <input formControlName="password" placeholder="Mot de passe">
+    <button type="submit">Ajouter membre</button>
+  </form>
 
-<form (ngSubmit)="saveMember()">
-  <input type="text" [(ngModel)]="currentMember.name" name="name" placeholder="Nom" required />
-  <input type="email" [(ngModel)]="currentMember.email" name="email" placeholder="Email" required />
+  <ul>
+    <li *ngFor="let m of members">
+      {{ m.name }} ({{ m.age }} ans) - {{ m.email }}
+    </li>
+  </ul>
 
-  <button type="submit">
-    {{ isEditMember ? 'Modifier' : 'Ajouter' }}
-  </button>
-</form>
+  <hr>
 
-<ul>
-  <li *ngFor="let m of members">
-    {{ m.name }} ({{ m.email }})
-    <button (click)="editMember(m)">Modifier</button>
-    <button (click)="deleteMember(m.id)">Supprimer</button>
-  </li>
-</ul>
+  <h2>Cours</h2>
+  <form [formGroup]="courseForm" (ngSubmit)="addCourse()">
+    <input formControlName="title" placeholder="Titre du cours">
+    <input formControlName="description" placeholder="Description">
+    <input formControlName="startAt" type="datetime-local">
+    <input formControlName="durationMinutes" type="number" placeholder="Durée (minutes)">
+    <button type="submit">Ajouter cours</button>
+  </form>
 
-<hr>
+  <ul>
+    <li *ngFor="let c of courses">
+      {{ c.title }} - {{ c.description }} - {{ c.startAt }} ({{ c.durationMinutes }} min)
+    </li>
+  </ul>
 
-<!-- ================= COURS ================= -->
-<h3>Gestion des Cours</h3>
-
-<form (ngSubmit)="saveCourse()">
-  <input type="text" [(ngModel)]="currentCourse.name" name="courseName" placeholder="Nom du cours" required />
-
-  <button type="submit">
-    {{ isEditCourse ? 'Modifier' : 'Ajouter' }}
-  </button>
-</form>
-
-<ul>
-  <li *ngFor="let c of courses">
-    {{ c.name }}
-    <button (click)="editCourse(c)">Modifier</button>
-    <button (click)="deleteCourse(c.id)">Supprimer</button>
-  </li>
-</ul>
+</div>

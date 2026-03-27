@@ -29,7 +29,7 @@ namespace sale_sport.Migrations
 
                     b.HasIndex("MembersId");
 
-                    b.ToTable("CourseMember", (string)null);
+                    b.ToTable("CourseMember");
                 });
 
             modelBuilder.Entity("sale_sport.Models.Admin", b =>
@@ -52,7 +52,7 @@ namespace sale_sport.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins", (string)null);
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("sale_sport.Models.Coach", b =>
@@ -79,7 +79,7 @@ namespace sale_sport.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coaches", (string)null);
+                    b.ToTable("Coaches");
                 });
 
             modelBuilder.Entity("sale_sport.Models.Course", b =>
@@ -108,7 +108,7 @@ namespace sale_sport.Migrations
 
                     b.HasIndex("CoachId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("sale_sport.Models.Member", b =>
@@ -118,6 +118,9 @@ namespace sale_sport.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Age")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CoachId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
@@ -137,9 +140,11 @@ namespace sale_sport.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CoachId");
+
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("Members", (string)null);
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("sale_sport.Models.Subscription", b =>
@@ -147,6 +152,16 @@ namespace sale_sport.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<int>("DurationInMonths")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
@@ -157,7 +172,10 @@ namespace sale_sport.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscriptions", (string)null);
+                    b.HasIndex("MemberId")
+                        .IsUnique();
+
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("CourseMember", b =>
@@ -178,7 +196,7 @@ namespace sale_sport.Migrations
             modelBuilder.Entity("sale_sport.Models.Course", b =>
                 {
                     b.HasOne("sale_sport.Models.Coach", "Coach")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("CoachId");
 
                     b.Navigation("Coach");
@@ -186,12 +204,39 @@ namespace sale_sport.Migrations
 
             modelBuilder.Entity("sale_sport.Models.Member", b =>
                 {
-                    b.HasOne("sale_sport.Models.Subscription", "Subscription")
+                    b.HasOne("sale_sport.Models.Coach", "Coach")
+                        .WithMany("Members")
+                        .HasForeignKey("CoachId");
+
+                    b.HasOne("sale_sport.Models.Subscription", null)
                         .WithMany("Members")
                         .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Coach");
+                });
+
+            modelBuilder.Entity("sale_sport.Models.Subscription", b =>
+                {
+                    b.HasOne("sale_sport.Models.Member", "Member")
+                        .WithOne("Subscription")
+                        .HasForeignKey("sale_sport.Models.Subscription", "MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("sale_sport.Models.Coach", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("sale_sport.Models.Member", b =>
+                {
                     b.Navigation("Subscription");
                 });
 

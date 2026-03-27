@@ -1,8 +1,17 @@
 <h2>Ajouter un Membre</h2>
-<form (ngSubmit)="save()">
-  <input name="name" [(ngModel)]="member.name" placeholder="Nom" required /><br />
-  <input name="email" [(ngModel)]="member.email" placeholder="Email" required /><br />
-  <input type="number" name="age" [(ngModel)]="member.age" placeholder="Age" required /><br />
-  <input type="password" name="password" [(ngModel)]="member.password" placeholder="Mot de passe" required /><br />
-  <button type="submit">Enregistrer</button>
+
+<form (ngSubmit)="submit()">
+  <input type="text" [(ngModel)]="member.name" name="name" placeholder="Nom" required />
+  <br>
+
+  <input type="email" [(ngModel)]="member.email" name="email" placeholder="Email" required />
+  <br>
+
+  <input type="number" [(ngModel)]="member.age" name="age" placeholder="Age" required />
+  <br>
+
+  <input type="password" [(ngModel)]="member.password" name="password" placeholder="Mot de passe" required />
+  <br>
+
+  <button type="submit">Ajouter</button>
 </form>

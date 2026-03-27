@@ -1,0 +1,38 @@
+﻿# Visual Studio
+.vs/
+.vs
+.vscode/
+*.suo
+*.user
+*.sln.docstates
+_ReSharper.Caches/
+[Bb]in/
+[Oo]bj/
+
+# .NET
+bin/
+obj/
+*.db
+*.sqlite
+*.sqlite3
+*.cache
+*.log
+
+# Angular
+node_modules/
+dist/
+.tmp/
+.angular/
+npm-debug.log
+yarn-error.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~

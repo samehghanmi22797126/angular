@@ -1,0 +1,25 @@
+<div *ngIf="member">
+  <h2>Profil du membre</h2>
+  <p><strong>Nom :</strong> {{ member.name }}</p>
+  <p><strong>Age :</strong> {{ member.age }}</p>
+  <p><strong>Email :</strong> {{ member.email }}</p>
+</div>
+
+<div *ngIf="subscription">
+  <h2>Abonnement</h2>
+  <p><strong>Nom :</strong> {{ subscription.name }}</p>
+  <p><strong>Prix :</strong> {{ subscription.price | currency:'USD' }}</p>
+</div>
+
+<div *ngIf="courses.length > 0">
+  <h2>Mes cours</h2>
+  <ul>
+    <li *ngFor="let course of courses">
+      <strong>{{ course.name }}</strong> - {{ course.description }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="!courses.length">
+  <p>Pas de cours trouvés.</p>
+</div>
