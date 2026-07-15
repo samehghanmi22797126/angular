@@ -38,8 +38,45 @@ public class CoursesController : ControllerBase
         if (course == null) return NotFound("Course not found");
         var member = await _context.Members.FindAsync(memberId);
         if (member == null) return NotFound("Member not found");
+
+        if (!member.IsApproved) return BadRequest("Votre compte n'est pas encore activé. Veuillez attendre la validation d'un administrateur.");
+
+        if (course.StartAt.HasValue && course.StartAt.Value < DateTime.Now)
+            return BadRequest("Ce cours est déjà passé. Vous ne pouvez plus vous y inscrire.");
+
         if (course.Members.Any(m => m.Id == memberId)) return BadRequest("Member already registered");
+        
+        // Validation de la capacité
+        if (course.Members.Count >= course.MaxParticipants) 
+            return BadRequest("Le cours est complet. Limite de places atteinte.");
+
         course.Members.Add(member);
+
+        // Mise à jour automatique du coach du membre vers celui du cours
+        if (course.CoachId.HasValue) {
+            member.CoachId = course.CoachId.Value;
+        }
+
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, Course course)
+    {
+        if (id != course.Id) return BadRequest();
+        _context.Entry(course).State = EntityState.Modified;
+        try { await _context.SaveChangesAsync(); }
+        catch (DbUpdateConcurrencyException) { if (!_context.Courses.Any(e => e.Id == id)) return NotFound(); else throw; }
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var course = await _context.Courses.FindAsync(id);
+        if (course == null) return NotFound();
+        _context.Courses.Remove(course);
         await _context.SaveChangesAsync();
         return NoContent();
     }

@@ -1,5 +1,5 @@
-// src/app/admin/coaches/coaches-list/coaches-list.component.ts
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-coaches-list',
@@ -7,11 +7,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./coaches-list.component.css']
 })
 export class CoachesListComponent implements OnInit {
+  coaches: any[] = [];
+  loading: boolean = true;
 
-  constructor() { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    // Ici tu pourras récupérer les coaches depuis le service plus tard
+    this.loadCoaches();
   }
 
+  loadCoaches() {
+    this.loading = true;
+    this.adminService.getCoaches().subscribe({
+      next: (data: any[]) => {
+        this.coaches = data;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erreur chargement coachs:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+  deleteCoach(id: number) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce coach ?')) {
+      this.adminService.deleteCoach(id).subscribe({
+        next: () => this.loadCoaches(),
+        error: (err: any) => alert('Erreur lors de la suppression')
+      });
+    }
+  }
+
+  approveCoach(id: number) {
+    this.adminService.approveCoach(id).subscribe({
+      next: () => this.loadCoaches(),
+      error: (err: any) => alert('Erreur lors de l\'approbation')
+    });
+  }
 }

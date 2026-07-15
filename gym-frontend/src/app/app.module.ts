@@ -19,6 +19,9 @@ import { TarifComponent } from './tarif/tarif.component';
 import { OffresComponent } from './offres/offres.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { MemberComponent } from './member/member.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +39,10 @@ import { MemberComponent } from './member/member.component';
     TarifComponent,
     OffresComponent,
     ChatbotComponent,
-    MemberComponent
-   
+    MemberComponent,
+    PaymentComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

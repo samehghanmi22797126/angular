@@ -1,0 +1,22 @@
+<div class="admin">
+  <h2>Liste des utilisateurs</h2>
+  <button (click)="userService.refresh()">Rafraîchir</button>
+  <ul>
+    <li *ngFor="let u of users">
+      {{u.id}} — {{u.email}} — {{u.name || '-'}} — {{u.role || 'MEMBER'}}
+    </li>
+  </ul>
+
+  <h3>Ajouter un utilisateur</h3>
+  <div *ngIf="error" class="error">{{error}}</div>
+  <form (ngSubmit)="addUser()" #f="ngForm">
+    <input name="email" [(ngModel)]="newUser.email" placeholder="Email" required />
+    <input name="name" [(ngModel)]="newUser.name" placeholder="Nom" />
+    <select name="role" [(ngModel)]="newUser.role">
+      <option value="MEMBER">MEMBER</option>
+      <option value="COACH">COACH</option>
+      <option value="ADMIN">ADMIN</option>
+    </select>
+    <button type="submit" [disabled]="loading">{{ loading ? 'Ajout...' : 'S\'inscrire' }}</button>
+  </form>
+</div>

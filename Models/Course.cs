@@ -10,6 +10,9 @@ public class Course
     // Duration in minutes
     public int DurationMinutes { get; set; }
 
+    // Maximum number of participants allowed in the course
+    public int MaxParticipants { get; set; } = 10;
+
     // Optional coach leading the course
     public int? CoachId { get; set; }
     public Coach? Coach { get; set; }

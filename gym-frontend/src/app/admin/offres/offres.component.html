@@ -1,0 +1,99 @@
+<div class="header-actions">
+  <h3>Gestion des Offres</h3>
+  <button class="btn-primary" (click)="resetForm()" *ngIf="isEdit">+ Nouvelle Offre</button>
+</div>
+
+<div class="admin-card mb-4">
+  <div class="table-responsive">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>Offre</th>
+          <th>Prix</th>
+          <th>Durée</th>
+          <th>Caractéristiques</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="5" class="text-center">Chargement en cours...</td>
+        </tr>
+        <tr *ngIf="!loading && offres.length === 0">
+          <td colspan="5" class="text-center">Aucune offre définie.</td>
+        </tr>
+        <tr *ngFor="let offre of offres">
+          <td><strong>{{ offre.name }}</strong></td>
+          <td>{{ offre.price }} €</td>
+          <td>{{ offre.duration }}</td>
+          <td>
+            <ul class="feature-dots">
+              <li *ngFor="let f of offre.features">{{ f }}</li>
+            </ul>
+          </td>
+          <td class="text-right">
+            <div class="action-buttons">
+              <button class="btn-icon" (click)="editOffre(offre)" title="Modifier">✏️</button>
+              <button class="btn-icon delete" (click)="deleteOffre(offre.id)" title="Supprimer">🗑️</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="admin-card">
+  <div class="card-header">
+    <h4>{{ isEdit ? 'Modifier l\'offre' : 'Ajouter une nouvelle offre' }}</h4>
+  </div>
+  
+  <form [formGroup]="offreForm" (ngSubmit)="onSubmit()" class="modern-form">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nom de l'offre</label>
+        <input type="text" formControlName="name" class="form-input" placeholder="Ex: Pack Gold">
+      </div>
+
+      <div class="form-group">
+        <label>Prix (€)</label>
+        <input type="number" formControlName="price" class="form-input" placeholder="49.99">
+      </div>
+
+      <div class="form-group">
+        <label>Durée</label>
+        <input type="text" formControlName="duration" class="form-input" placeholder="Ex: 3 Mois">
+      </div>
+
+      <div class="form-group full-width">
+        <label>Description (Optionnelle)</label>
+        <textarea formControlName="description" class="form-input" rows="2"></textarea>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Caractéristiques</label>
+        <div formArrayName="caracteristiques" class="features-list">
+          <div *ngFor="let control of caracteristiques.controls; let i = index" class="feature-item">
+            <input type="text" [formControlName]="i" class="form-input" placeholder="Avantage...">
+            <button type="button" (click)="removeFeature(i)" class="btn-delete-small">×</button>
+          </div>
+          <button type="button" (click)="addFeature()" class="btn-add-feature">+ Ajouter un avantage</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="successMessage" style="padding: 10px; background: #d4edda; color: #155724; border-radius: 6px; margin-bottom: 10px;">
+      ✅ {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" style="padding: 10px; background: #f8d7da; color: #721c24; border-radius: 6px; margin-bottom: 10px;">
+      ❌ {{ errorMessage }}
+    </div>
+
+    <div class="form-footer">
+      <button type="button" class="btn-secondary" (click)="resetForm()" *ngIf="isEdit">Annuler</button>
+      <button type="submit" class="btn-primary">
+        {{ isEdit ? 'Sauvegarder les modifications' : 'Créer l\'offre' }}
+      </button>
+    </div>
+  </form>
+</div>

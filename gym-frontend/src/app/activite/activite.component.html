@@ -1,26 +1,27 @@
-<div class="activite">
-  <h1>Nos Activités 🏋️‍♂️</h1>
-  <p>Découvrez toutes nos activités disponibles dans la salle.</p>
+<div class="activite-page">
+  <div class="hero-overlay"></div>
+  
+  <div class="activite-container">
+    <header class="activite-header">
+      <span class="subtitle">Expérience Fitness</span>
+      <h1>NOS <span>ACTIVITÉS</span></h1>
+      <p>Plongez dans un univers conçu pour la performance et le dépassement de soi.</p>
+      <button *ngIf="isMember" class="btn-cta" routerLink="/offres">REJOINDRE LA SALLE</button>
+    </header>
 
-  <div class="activite-list">
-    <div class="activite-item">
-      <img src="/assets/musculation.png" alt="Musculation">
-      <span>Musculation</span>
-    </div>
-
-    <div class="activite-item">
-      <img src="/assets/cardio.png" alt="Cardio">
-      <span>Cardio</span>
-    </div>
-
-    <div class="activite-item">
-      <img src="/assets/fitness.png" alt="Fitness">
-      <span>Fitness</span>
-    </div>
-
-    <div class="activite-item">
-      <img src="/assets/yoga.png" alt="Yoga">
-      <span>Yoga</span>
+    <div class="activite-grid">
+      <div class="activite-card" *ngFor="let activity of activities">
+        <div class="card-icon">{{ activity.icon }}</div>
+        <div class="card-content">
+          <h3>{{ activity.title }}</h3>
+          <p>{{ activity.description }}</p>
+          <div class="card-footer">
+            <span class="intensity-badge">Intensité : <strong>{{ activity.intensity }}</strong></span>
+            <button *ngIf="isMember" class="btn-small" routerLink="/offres">S'inscrire</button>
+          </div>
+        </div>
+        <div class="card-accent" [style.background]="activity.color"></div>
+      </div>
     </div>
   </div>
 </div>

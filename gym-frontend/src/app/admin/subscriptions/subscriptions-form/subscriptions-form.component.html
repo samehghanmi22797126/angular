@@ -1,10 +1,39 @@
-<h3>Ajouter un abonnement</h3>
-<form (ngSubmit)="onSubmit()">
-  <input name="member" [(ngModel)]="subscription.member" placeholder="Nom du membre" required /><br />
-  <select name="type" [(ngModel)]="subscription.type" required>
-    <option value="">Choisir type</option>
-    <option value="Mensuel">Mensuel</option>
-    <option value="Annuel">Annuel</option>
-  </select><br />
-  <button type="submit">Ajouter</button>
-</form>
+<div class="form-container">
+  <div class="form-header">
+    <button class="btn-back" routerLink="/admin/subscriptions">← Retour</button>
+    <h3>{{ isEdit ? 'Modifier l\'Abonnement' : 'Créer un Nouvel Abonnement' }}</h3>
+  </div>
+
+  <div class="admin-card">
+    <form (ngSubmit)="onSubmit()" #subForm="ngForm" class="modern-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Titre de l'Abonnement</label>
+          <input type="text" name="name" [(ngModel)]="subscription.name" required placeholder="Ex: Pass Premium" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label>Prix (€)</label>
+          <input type="number" name="price" [(ngModel)]="subscription.price" required placeholder="49.99" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label>Durée (Mois)</label>
+          <input type="number" name="duration" [(ngModel)]="subscription.durationInMonths" required placeholder="12" class="form-input">
+        </div>
+
+        <div class="form-group full-width">
+          <label>Description</label>
+          <textarea name="description" [(ngModel)]="subscription.description" placeholder="Description des avantages..." class="form-input" rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button" class="btn-secondary" routerLink="/admin/subscriptions">Annuler</button>
+        <button type="submit" class="btn-primary" [disabled]="!subForm.form.valid || loading">
+          {{ loading ? 'Enregistrement...' : (isEdit ? 'Mettre à jour' : 'Créer l\'abonnement') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

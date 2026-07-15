@@ -1,0 +1,135 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0c0c0c;
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background-color: #141414;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 30px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.highlight { color: #e61919; }
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav ul li a {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  color: #888;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  border-left: 4px solid transparent;
+}
+
+.sidebar-nav ul li a:hover, .sidebar-nav ul li a.active {
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+  border-left-color: #e61919;
+}
+
+.icon { margin-right: 15px; font-size: 1.2rem; }
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.profile-link:hover { background: rgba(255,255,255,0.05); color: white; }
+
+.btn-logout {
+  background: rgba(230, 25, 25, 0.1);
+  color: #e61919;
+  border: 1px solid rgba(230, 25, 25, 0.2);
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+
+.btn-logout:hover { background: rgba(230, 25, 25, 0.2); border-color: #e61919; }
+
+/* Content Area */
+.content-area {
+  flex: 1;
+  margin-left: 280px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-header {
+  padding: 20px 40px;
+  background-color: #111;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.content-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.content-body {
+  padding: 40px;
+  flex: 1;
+  background-image: radial-gradient(circle at top right, rgba(230, 25, 25, 0.03), transparent 400px);
+}
+
+/* Base Styles for Management Views (to be used in actual list components) */
+.admin-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}

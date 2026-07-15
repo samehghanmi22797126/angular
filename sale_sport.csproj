@@ -1,32 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<!-- ✅ Utilise .NET 8 (stable) -->
-		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-	  <UserSecretsId>f7973df2-49e6-46f4-b453-c6f2c7b42d51</UserSecretsId>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f7973df2-49e6-46f4-b453-c6f2c7b42d51</UserSecretsId>
   </PropertyGroup>
 
-	<ItemGroup>
-		<!-- ✅ EF Core -->
-		<PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.13" />
+  <ItemGroup>
+    <!-- EF Core + MySQL -->
+    <PackageReference Include="MailKit" Version="4.15.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
 
-		<!-- ✅ Tools EF (UNE SEULE FOIS) -->
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.13">
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+    <!-- Authentication -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+    <PackageReference Include="Stripe.net" Version="51.1.0" />
 
-		<!-- ✅ Design -->
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.13">
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="OpenAI" Version="2.9.1" />
+    <!-- Swagger -->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 
-		<!-- ✅ Swagger -->
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.5" />
-	</ItemGroup>
+    <!-- Azure OpenAI (chatbot) -->
+    <PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
+  </ItemGroup>
 
 </Project>

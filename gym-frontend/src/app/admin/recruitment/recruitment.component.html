@@ -1,0 +1,77 @@
+<div class="recruitment-container">
+  <div class="admin-header">
+    <h1>Gestion du Recrutement</h1>
+    <button class="btn-primary" (click)="showForm = !showForm">
+      {{ showForm ? 'Fermer' : '+ Ajouter une Offre' }}
+    </button>
+  </div>
+
+  <!-- Formulaire d'ajout -->
+  <div class="offer-form" *ngIf="showForm">
+    <h3>Nouvelle Offre de Travail</h3>
+    <div class="form-group">
+      <label>Titre du poste</label>
+      <input type="text" [(ngModel)]="newOffer.title" placeholder="Ex: Coach Musculation Expert">
+    </div>
+    <div class="form-group">
+      <label>Description des missions</label>
+      <textarea [(ngModel)]="newOffer.description" rows="4" placeholder="Décrivez le rôle et les attentes..."></textarea>
+    </div>
+    <button class="btn-confirm" (click)="submitOffer()">Publier l'offre</button>
+  </div>
+
+  <!-- Offres Actives -->
+  <section class="section-admin">
+    <h3>Offres en Ligne</h3>
+    <div class="admin-grid">
+      <div class="admin-card" *ngFor="let offer of offers">
+        <h4>{{ offer.title }}</h4>
+        <p>{{ offer.description | slice:0:100 }}...</p>
+        <div class="badge" [class.active]="offer.isActive">En ligne</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Candidatures Reçues -->
+  <section class="section-admin">
+    <h3>Candidatures & CV Reçus</h3>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Offre</th>
+          <th>Candidat</th>
+          <th>Email</th>
+          <th>Date Envoi</th>
+          <th>CV</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of applications">
+          <td>{{ app.jobOffer?.title }}</td>
+          <td>{{ app.candidateName }}</td>
+          <td>{{ app.candidateEmail || 'Non renseigné' }}</td>
+          <td>{{ app.appliedAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="app.status.toLowerCase().replace(' ', '-')">
+              {{ app.status }}
+            </span>
+          </td>
+          <td class="table-actions">
+            <a [href]="'http://localhost:5280/uploads/cvs/' + app.cvPath" target="_blank" class="btn-icon" title="Lire CV">
+              📄
+            </a>
+            <button (click)="updateStatus(app.id, 'Accepté')" class="btn-icon success" title="Accepter">
+              ✅
+            </button>
+            <button (click)="updateStatus(app.id, 'Refusé')" class="btn-icon danger" title="Refuser">
+              ❌
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </section>
+</div>

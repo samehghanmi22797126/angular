@@ -1,9 +1,62 @@
-<h2>Liste des Membres</h2>
+<div class="header-actions">
+  <h3>Gestion des Membres</h3>
+  <button class="btn-primary" [routerLink]="['add']">+ Ajouter un membre</button>
+</div>
 
-<ul>
-  <li *ngFor="let member of members">
-    {{ member.name }} - {{ member.email }}
-  </li>
-</ul>
-
-<button [routerLink]="['add']">Ajouter un membre</button>
+<div class="admin-card">
+  <div class="table-responsive">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Age</th>
+          <th>Abonnement</th>
+          <th>Statut</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="6" class="text-center">Chargement en cours...</td>
+        </tr>
+        <tr *ngIf="!loading && members.length === 0">
+          <td colspan="6" class="text-center">Aucun membre trouvé.</td>
+        </tr>
+        <tr *ngFor="let member of members">
+          <td>
+            <div class="user-info">
+              <span class="user-avatar">{{ member.name?.charAt(0) || '?' }}</span>
+              <span class="user-name">{{ member.name }}</span>
+            </div>
+          </td>
+          <td>{{ member.email }}</td>
+          <td>{{ member.age }} ans</td>
+          <td>
+            <span class="badge" [ngClass]="member.subscription ? 'badge-success' : 'badge-warning'">
+              {{ member.subscription?.name || 'Aucun' }}
+            </span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="member.isApproved ? 'badge-success' : 'badge-warning'">
+              {{ member.isApproved ? 'Approuvé' : 'En attente' }}
+            </span>
+          </td>
+          <td class="text-right">
+            <div class="action-buttons">
+              <button *ngIf="!member.isApproved" class="btn-icon approve" (click)="approveMember(member.id)" title="Approuver">
+                ✅
+              </button>
+              <button class="btn-icon" [routerLink]="['add']" [queryParams]="{id: member.id}" title="Modifier">
+                ✏️
+              </button>
+              <button class="btn-icon delete" (click)="deleteMember(member.id)" title="Supprimer">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,11 +1,588 @@
-.home-test {
-  text-align: center;
-  margin-top: 100px;
-  font-family: Arial, sans-serif;
+:host {
+  display: block;
+  overflow-x: hidden;
 }
 
-button {
-  margin: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
+.home-container {
+  scroll-behavior: smooth;
 }
+
+/* Sections Configuration */
+section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 1. Hero Section */
+.hero-section {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: url('../../assets/img/hero.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect */
+  padding: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(11,11,11,1) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* 2. Services Section */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.service-card {
+  background-color: var(--dark-surface);
+  padding: 40px 30px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  border-bottom: 3px solid var(--primary-red);
+  background-color: var(--dark-surface-hover);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.service-card .icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.service-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* 3. Coaches Section */
+.coaches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.coach-card {
+  background-color: var(--dark-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.coach-card:hover {
+  transform: translateY(-10px);
+}
+
+.coach-img-wrapper {
+  height: 350px;
+  overflow: hidden;
+}
+
+.coach-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.coach-card:hover .coach-img-wrapper img {
+  transform: scale(1.1);
+}
+
+.coach-info {
+  padding: 25px;
+  text-align: center;
+}
+
+.coach-info h3 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.coach-info .specialty {
+  color: var(--primary-red);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+/* 4. Abonnements Section */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  align-items: center;
+}
+
+.pricing-card {
+  background-color: var(--dark-surface);
+  padding: 50px 30px;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(230, 25, 25, 0.3);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.pricing-card.popular {
+  background-color: #151515;
+  border: 2px solid var(--primary-red);
+  transform: scale(1.05);
+  padding: 60px 30px;
+  z-index: 1;
+}
+
+.pricing-card.popular:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary-red);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.pricing-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.pricing-card .price {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--primary-red);
+}
+
+.pricing-card .price span {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: normal;
+}
+
+.pricing-card .benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.pricing-card .benefits li {
+  margin-bottom: 15px;
+  color: var(--text-muted);
+  position: relative;
+  padding-left: 25px;
+  text-align: left;
+}
+
+.pricing-card .benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary-red);
+  font-weight: bold;
+}
+
+.pricing-card button {
+  width: 100%;
+}
+
+/* 5. Testimonials Section */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.testimonial-card {
+  background-color: var(--dark-surface);
+  padding: 40px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 4rem;
+  color: rgba(230, 25, 25, 0.2);
+  font-family: serif;
+}
+
+.stars {
+  color: #ffc107;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.quote {
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.client-name {
+  font-weight: bold;
+  color: white;
+  text-align: right;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .pricing-card.popular {
+    transform: scale(1);
+    padding: 50px 30px;
+  }
+  .pricing-card.popular:hover {
+    transform: translateY(-10px);
+  }
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  section {
+    padding: 60px 20px;
+  }
+  .testimonial-card p {
+    font-size: 0.95rem;
+  }
+  .section-header h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Recruitment Section Styles */
+.recruitment-section {
+  padding: 100px 20px;
+  background: #0a0a0a;
+}
+
+.recruitment-section .subtitle {
+  color: #888;
+  margin-top: -15px;
+}
+
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.job-card {
+  background: #151515;
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.job-card:hover {
+  transform: translateY(-10px);
+  border-color: #e61919;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.job-badge {
+  display: inline-block;
+  background: rgba(230, 25, 25, 0.1);
+  color: #e61919;
+  padding: 4px 12px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.job-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.job-card p {
+  color: #bbb;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.btn-upload {
+  display: inline-block;
+  background: #e61919;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.btn-upload:hover {
+  background: #a31212;
+  transform: scale(1.05);
+}
+
+/* Review Form Styles */
+.review-form-container {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.review-form-container h3 {
+  color: white;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rating-input {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #ccc;
+}
+
+.rating-input select {
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+  padding: 8px 15px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.review-form textarea {
+  width: 100%;
+  min-height: 120px;
+  background: #111;
+  color: white;
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 12px;
+  resize: vertical;
+  outline: none;
+}
+
+.review-form textarea:focus {
+  border-color: #e61919;
+}
+
+/* Location Section */
+.location-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  align-items: center;
+  background: #111;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.map-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.contact-card-home {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-card-home h3 {
+  font-size: 1.8rem;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.contact-card-home p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #aaa;
+}
+
+.contact-card-home .address {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.contact-card-home .hours {
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.contact-card-home .btn-primary {
+  margin-top: 15px;
+  text-decoration: none;
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  .location-content {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+}
+
+/* --- Videos Section --- */
+.videos-section {
+  padding: 80px 5%;
+  background-color: var(--dark-bg);
+}
+
+.upload-video-form {
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  background-color: var(--dark-surface);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.upload-video-form h3 {
+  margin-bottom: 15px;
+  color: var(--primary-red);
+}
+
+.upload-video-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-card {
+  background-color: var(--dark-surface);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.video-card h4 {
+  margin-top: 15px;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.video-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.btn-delete {
+  margin-top: 15px;
+  background-color: transparent;
+  color: #ff4444;
+  border: 1px solid #ff4444;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.btn-delete:hover {
+  background-color: #ff4444;
+  color: white;
+}
+

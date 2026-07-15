@@ -1,7 +1,62 @@
-<h1>Admin Dashboard</h1>
-<ul>
-  <li><a routerLink="/admin/members">Gérer les Membres</a></li>
-  <li><a routerLink="/admin/coaches">Gérer les Coachs</a></li>
-  <li><a routerLink="/admin/subscriptions">Gérer les Abonnements</a></li>
-</ul>
-<router-outlet></router-outlet>
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="logo">GYM<span class="highlight">SPORT</span> Admin</span>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a routerLink="/admin/members" routerLinkActive="active">
+            <span class="icon">👥</span> Membres
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/coaches" routerLinkActive="active">
+            <span class="icon">👟</span> Coachs
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/courses" routerLinkActive="active">
+            <span class="icon">📅</span> Cours
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/subscriptions" routerLinkActive="active">
+            <span class="icon">💳</span> Abonnements
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/offres" routerLinkActive="active">
+            <span class="icon">🏷️</span> Offres
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/recruitment" routerLinkActive="active">
+            <span class="icon">💼</span> Recrutement
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a routerLink="/admin/profile" class="profile-link">
+        <span class="icon">⚙️</span> Mon Profil
+      </a>
+      <button (click)="logout()" class="btn-logout">
+        <span class="icon">🚪</span> Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content-area">
+    <header class="content-header">
+      <h2>Panneau d'Administration</h2>
+    </header>
+    <div class="content-body">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,56 @@
+<div class="payment-page">
+  <div class="payment-card">
+    <div *ngIf="!success" class="checkout-form">
+      <h2>Finalisez votre <span>Abonnement</span></h2>
+      <p class="subtitle">Sécurisez votre accès à la salle en quelques secondes.</p>
+
+      <div class="plan-summary">
+        <label>Plan Sélectionné</label>
+        <div class="plan-detail">
+          <span class="plan-name">{{ planName }}</span>
+          <span class="plan-price">{{ price }} DT</span>
+        </div>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" #paymentForm="ngForm">
+        <div class="form-group">
+          <label>Numéro de Carte</label>
+          <input type="text" name="cardNumber" [(ngModel)]="cardNumber" placeholder="0000 0000 0000 0000" pattern="\d{16}" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Expiration (MM/AA)</label>
+            <input type="text" name="expiryDate" [(ngModel)]="expiryDate" placeholder="MM/YY" required>
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="text" name="cvv" [(ngModel)]="cvv" placeholder="123" pattern="\d{3}" required>
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-box">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn-pay" [disabled]="!paymentForm.valid || loading">
+          <span *ngIf="!loading">PAYER {{ price }} DT</span>
+          <span *ngIf="loading">TRAITEMENT EN COURS...</span>
+        </button>
+      </form>
+
+      <div class="secure-footer">
+        🔒 Paiement sécurisé par cryptage SSL 256 bits
+      </div>
+    </div>
+
+    <!-- Écran de Succès -->
+    <div *ngIf="success" class="success-screen">
+      <div class="success-icon">✨</div>
+      <h2>PAIEMENT RÉUSSI !</h2>
+      <p>Bienvenue officiellement dans la communauté GYM Sport.</p>
+      <p class="redirect-info">Redirection vers votre tableau de bord...</p>
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+</div>

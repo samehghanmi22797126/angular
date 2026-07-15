@@ -1,37 +1,50 @@
-<div class="chat-bubble-btn" (click)="toggleChat()">
-  <span *ngIf="!isOpen">💬</span>
-  <span *ngIf="isOpen">✕</span>
+<!-- 🔵 Bouton flottant -->
+<div class="chat-toggle" (click)="toggleChat()">
+  💬
+  <span *ngIf="unreadCount > 0" class="notification-badge">
+    {{ unreadCount }}
+  </span>
 </div>
 
-<div class="chat-window" *ngIf="isOpen">
-  <div class="chat-header">
-    <span class="chat-title">Assistant</span>
-    <span class="chat-status">● En ligne</span>
+<!-- 💬 Chatbox -->
+<div class="chatbot-container" [class.active]="chatOpen">
+
+  <!-- Header -->
+  <div class="chatbot-header">
+    <div style="display: flex; align-items: center;">
+      <span class="header-status"></span>
+      <h3>CoachBot - Apex</h3>
+    </div>
+    <button (click)="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size: 20px;">✕</button>
   </div>
 
-  <div class="chat-messages" #scrollContainer>
-    <div *ngIf="messages.length === 0" class="chat-empty">
-      Bonjour 👋 Comment puis-je vous aider ?
-    </div>
-    <div *ngFor="let msg of messages" class="msg-wrapper" [class.user-wrapper]="msg.role === 'user'">
-      <div class="msg" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
-        {{ msg.content }}
+  <!-- Messages -->
+  <div class="chatbot-messages" #messageContainer>
+
+    <div *ngFor="let msg of messages"
+         [ngClass]="{'message': true, 'user': !msg.fromBot, 'bot': msg.fromBot}">
+
+      <div class="message-content">
+        <p>{{ msg.text }}</p>
+        <small>{{ msg.timestamp | date:'HH:mm' }}</small>
       </div>
     </div>
-    <div *ngIf="isLoading" class="msg-wrapper">
-      <div class="msg assistant typing">
+
+    <!-- Typing -->
+    <div *ngIf="isLoading" class="message bot">
+      <div class="typing-indicator">
         <span></span><span></span><span></span>
       </div>
     </div>
+
   </div>
 
-  <div class="chat-input-area">
-    <input [(ngModel)]="userInput"
+  <!-- Input -->
+  <div class="chatbot-input">
+    <input [(ngModel)]="newMessage"
            (keyup.enter)="sendMessage()"
-           placeholder="Écrire un message..."
-           [disabled]="isLoading" />
-    <button (click)="sendMessage()" [disabled]="isLoading || !userInput.trim()">
-      ➤
-    </button>
+           placeholder="Écrire..." />
+    <button (click)="sendMessage()">➤</button>
   </div>
+
 </div>

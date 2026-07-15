@@ -1,20 +1,24 @@
+using System.ComponentModel.DataAnnotations;
 namespace sale_sport.Models;
 
 public class Subscription
 {
-
 	public int Id { get; set; }
 
-	[Required]
-	public string Name { get; set; } = null!;
+	[Required] // maintenant reconnu
+	public string Name { get; set; } = string.Empty;
 
-	[Required]
+	[Required] // maintenant reconnu
 	public int DurationInMonths { get; set; }
 
 	[Required]
 	public decimal Price { get; set; }
-
-	public Member Member { get; set; } = null!;
+	
+	public string? Type { get; set; }
+    
+    public string? Description { get; set; }
+    
+    public string FeaturesJson { get; set; } = "[]";
 
 	public ICollection<Member> Members { get; set; } = new List<Member>();
 }

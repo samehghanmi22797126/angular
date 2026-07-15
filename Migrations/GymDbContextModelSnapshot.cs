@@ -15,128 +15,210 @@ namespace sale_sport.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("CourseMember", b =>
                 {
                     b.Property<int>("CoursesId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("MembersId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("CoursesId", "MembersId");
 
                     b.HasIndex("MembersId");
 
-                    b.ToTable("CourseMember");
+                    b.ToTable("CourseMember", (string)null);
                 });
 
             modelBuilder.Entity("sale_sport.Models.Admin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("sale_sport.Models.Coach", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Specialty")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coaches");
+                    b.ToTable("Coaches", (string)null);
                 });
 
             modelBuilder.Entity("sale_sport.Models.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("CoachId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("DurationMinutes")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxParticipants")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("StartAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CoachId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
+                });
+
+            modelBuilder.Entity("sale_sport.Models.JobApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AppliedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CandidateName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CvPath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("JobOfferId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobOfferId");
+
+                    b.ToTable("JobApplications", (string)null);
+                });
+
+            modelBuilder.Entity("sale_sport.Models.JobOffer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobOffers", (string)null);
                 });
 
             modelBuilder.Entity("sale_sport.Models.Member", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Age")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("CoachId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
-                    b.Property<int>("SubscriptionId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("SubscriptionEndDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("SubscriptionId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -144,38 +226,113 @@ namespace sale_sport.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("Members");
+                    b.ToTable("Members", (string)null);
+                });
+
+            modelBuilder.Entity("sale_sport.Models.Offre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FeaturesJson")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offres", (string)null);
+                });
+
+            modelBuilder.Entity("sale_sport.Models.PasswordResetToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PasswordResetTokens", (string)null);
+                });
+
+            modelBuilder.Entity("sale_sport.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MemberName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("sale_sport.Models.Subscription", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("DurationInMonths")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberId")
-                        .IsUnique();
-
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("CourseMember", b =>
@@ -202,30 +359,30 @@ namespace sale_sport.Migrations
                     b.Navigation("Coach");
                 });
 
+            modelBuilder.Entity("sale_sport.Models.JobApplication", b =>
+                {
+                    b.HasOne("sale_sport.Models.JobOffer", "JobOffer")
+                        .WithMany("Applications")
+                        .HasForeignKey("JobOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobOffer");
+                });
+
             modelBuilder.Entity("sale_sport.Models.Member", b =>
                 {
                     b.HasOne("sale_sport.Models.Coach", "Coach")
                         .WithMany("Members")
                         .HasForeignKey("CoachId");
 
-                    b.HasOne("sale_sport.Models.Subscription", null)
+                    b.HasOne("sale_sport.Models.Subscription", "Subscription")
                         .WithMany("Members")
-                        .HasForeignKey("SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubscriptionId");
 
                     b.Navigation("Coach");
-                });
 
-            modelBuilder.Entity("sale_sport.Models.Subscription", b =>
-                {
-                    b.HasOne("sale_sport.Models.Member", "Member")
-                        .WithOne("Subscription")
-                        .HasForeignKey("sale_sport.Models.Subscription", "MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Member");
+                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("sale_sport.Models.Coach", b =>
@@ -235,9 +392,9 @@ namespace sale_sport.Migrations
                     b.Navigation("Members");
                 });
 
-            modelBuilder.Entity("sale_sport.Models.Member", b =>
+            modelBuilder.Entity("sale_sport.Models.JobOffer", b =>
                 {
-                    b.Navigation("Subscription");
+                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("sale_sport.Models.Subscription", b =>

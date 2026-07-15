@@ -1,47 +1,226 @@
-.offres {
-  min-height: 80vh;
-  padding: 60px 20px;
+.offres-container {
+  padding: 80px 20px;
+  background-color: var(--dark-bg);
+  min-height: 100vh;
+}
+
+.offres-header {
   text-align: center;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #1976d2, #42a5f5);
+  margin-bottom: 60px;
+}
+
+.offres-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
   color: white;
 }
 
-  .offres h1 {
-    font-size: 42px;
-    margin-bottom: 20px;
-  }
+.offres-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
 
-  .offres p {
-    font-size: 18px;
-    margin-bottom: 40px;
-  }
-
-.offres-list {
-  display: flex;
-  justify-content: center;
+/* Offres Grid */
+.offres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
-  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .offre-card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(8px);
-  padding: 25px 20px;
-  width: 250px;
-  border-radius: 15px;
-  transition: transform 0.3s;
+  background-color: var(--dark-surface);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
-  .offre-card:hover {
-    transform: translateY(-10px);
-  }
+.offre-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary-red);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
 
-  .offre-card h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-  }
+.offre-header {
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(230, 25, 25, 0.1) 0%, rgba(11, 11, 11, 0) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
 
-  .offre-card p {
-    font-size: 16px;
-  }
+.offre-header h2 {
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.offre-type {
+  font-size: 0.8rem;
+  color: var(--primary-red);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.offre-price {
+  padding: 30px;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+}
+
+.currency { font-size: 1.5rem; vertical-align: top; margin-right: 2px; }
+.period { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+
+.offre-description {
+  padding: 0 30px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.offre-features {
+  padding: 0 30px 30px;
+  flex-grow: 1;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.feature svg {
+  color: var(--primary-red);
+  flex-shrink: 0;
+}
+
+.subscribe-btn {
+  margin: 0 30px 30px;
+  padding: 15px;
+  background-color: var(--primary-red);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.subscribe-btn:hover {
+  background-color: var(--primary-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(230,25,25,0.3);
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(5px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background-color: var(--dark-surface);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  width: 90%; max-width: 500px;
+  padding: 40px;
+  color: white;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.modal-header {
+  margin-bottom: 25px;
+}
+
+.modal-header h2 { margin: 0; font-size: 1.5rem; }
+
+.close-modal {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none; border: none; color: white;
+  font-size: 1.5rem; cursor: pointer;
+}
+
+.modal-offre {
+  background: rgba(255,255,255,0.03);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 30px;
+}
+
+.offre-price-modal {
+  font-size: 2rem; color: var(--primary-red); font-weight: 800;
+  margin: 10px 0;
+}
+
+.modal-actions {
+  display: flex; gap: 15px;
+}
+
+.btn-cancel, .btn-confirm {
+  flex: 1; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+}
+
+.btn-cancel {
+  background: none; border: 1px solid #333; color: white;
+}
+
+.btn-cancel:hover { background: rgba(255,255,255,0.05); }
+
+.btn-confirm {
+  background-color: var(--primary-red); border: none; color: white;
+}
+
+.btn-confirm:hover:not(:disabled) { background-color: var(--primary-red-hover); }
+
+/* Utility States */
+.loading-state, .empty-state {
+  text-align: center; padding: 60px; color: var(--text-muted);
+}
+
+.spinner {
+  width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary-red);
+  border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 15px; border-radius: 8px;
+  text-align: center; margin: 20px auto; max-width: 500px;
+}
+
+.role-restricted {
+  text-align: center;
+  margin: 0 30px 30px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  color: #888;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+

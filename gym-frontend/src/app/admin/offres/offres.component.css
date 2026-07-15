@@ -1,0 +1,161 @@
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-actions h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0;
+}
+
+.mb-4 { margin-bottom: 2rem; }
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #ccc;
+}
+
+.modern-table th {
+  text-align: left;
+  padding: 18px 25px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modern-table td {
+  padding: 15px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.feature-dots {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.feature-dots li::before {
+  content: "•";
+  color: #e61919;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-icon:hover { background: rgba(255, 255, 255, 0.1); transform: scale(1.1); }
+.btn-icon.delete:hover { background: rgba(230, 25, 25, 0.1); }
+
+.card-header {
+  padding: 20px 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header h4 { margin: 0; color: white; }
+
+.modern-form { padding: 30px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.full-width { grid-column: span 3; }
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #0c0c0c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  transition: all 0.3s;
+}
+
+.form-input:focus { border-color: #e61919; outline: none; }
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-delete-small {
+  background: none;
+  border: none;
+  color: #ff3333;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.btn-add-feature {
+  background: none;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  color: #888;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.btn-add-feature:hover { color: white; border-color: white; }
+
+.form-footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.btn-primary {
+  background-color: #e61919;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #888;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}

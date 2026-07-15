@@ -1,0 +1,58 @@
+<div class="header-actions">
+  <h3>Gestion des Coachs</h3>
+  <button class="btn-primary" [routerLink]="['add']">+ Ajouter un coach</button>
+</div>
+
+<div class="admin-card">
+  <div class="table-responsive">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>Coach</th>
+          <th>Email</th>
+          <th>Spécialité</th>
+          <th>Statut</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="5" class="text-center">Chargement en cours...</td>
+        </tr>
+        <tr *ngIf="!loading && coaches.length === 0">
+          <td colspan="5" class="text-center">Aucun coach trouvé.</td>
+        </tr>
+        <tr *ngFor="let coach of coaches">
+          <td>
+            <div class="user-info">
+              <span class="user-avatar coach-avatar">{{ coach.name?.charAt(0) || '?' }}</span>
+              <span class="user-name">{{ coach.name }}</span>
+            </div>
+          </td>
+          <td>{{ coach.email }}</td>
+          <td>
+            <span class="badge badge-info">{{ coach.specialty || 'Général' }}</span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="coach.isApproved ? 'badge-success' : 'badge-warning'">
+              {{ coach.isApproved ? 'Approuvé' : 'En attente' }}
+            </span>
+          </td>
+          <td class="text-right">
+            <div class="action-buttons">
+              <button *ngIf="!coach.isApproved" class="btn-icon approve" (click)="approveCoach(coach.id)" title="Approuver">
+                ✅
+              </button>
+              <button class="btn-icon" [routerLink]="['add']" [queryParams]="{id: coach.id}" title="Modifier">
+                ✏️
+              </button>
+              <button class="btn-icon delete" (click)="deleteCoach(coach.id)" title="Supprimer">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

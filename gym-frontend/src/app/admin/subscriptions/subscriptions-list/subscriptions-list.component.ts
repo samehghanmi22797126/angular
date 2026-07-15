@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-subscriptions-list',
@@ -6,12 +7,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subscriptions-list.component.css']
 })
 export class SubscriptionsListComponent implements OnInit {
-  subscriptions = [
-    { id: 1, member: 'John Doe', type: 'Mensuel' },
-    { id: 2, member: 'Jane Doe', type: 'Annuel' }
-  ];
+  subscriptions: any[] = [];
+  loading = true;
 
-  constructor() { }
+  constructor(private adminService: AdminService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.loadSubscriptions();
+  }
+
+  loadSubscriptions() {
+    this.loading = true;
+    this.adminService.getSubscriptions().subscribe({
+      next: (data) => {
+        this.subscriptions = data;
+        this.loading = false;
+      },
+      error: () => this.loading = false
+    });
+  }
+
+  deleteSubscription(id: number) {
+    if (confirm('Supprimer cet abonnement ?')) {
+      this.adminService.deleteSubscription(id).subscribe(() => this.loadSubscriptions());
+    }
+  }
 }

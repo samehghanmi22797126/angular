@@ -1,0 +1,123 @@
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-actions h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0;
+}
+
+.btn-primary {
+  background-color: #e61919;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(230, 25, 25, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #ff3333;
+  transform: translateY(-2px);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.modern-table th {
+  text-align: left;
+  padding: 18px 25px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.modern-table td {
+  padding: 15px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  vertical-align: middle;
+}
+
+.modern-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(230, 25, 25, 0.1);
+  color: #e61919;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.coach-avatar {
+  background-color: rgba(0, 123, 255, 0.1);
+  color: #007bff;
+}
+
+.user-name {
+  color: white;
+  font-weight: 600;
+}
+
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.btn-icon.delete:hover {
+  background-color: rgba(230, 25, 25, 0.1);
+  border-color: rgba(230, 25, 25, 0.3);
+}

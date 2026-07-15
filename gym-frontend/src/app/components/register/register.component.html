@@ -1,50 +1,103 @@
-<h2>Inscription</h2>
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="brand-section">
+        <h1 class="brand-title">REJOINDRE <span>L'ÉLITE</span></h1>
+        <p class="brand-subtitle">Commence ta transformation aujourd'hui</p>
+      </div>
 
-<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="form-section">
+        <!-- FORMULAIRE D'INSCRIPTION -->
+        <form *ngIf="!registrationSuccess" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+          <div class="input-group">
+            <input type="text"
+                   class="form-input"
+                   name="name"
+                   [(ngModel)]="user.name"
+                   placeholder="Nom complet"
+                   required />
+          </div>
 
-  <input type="text"
-         name="name"
-         [(ngModel)]="user.name"
-         placeholder="Nom"
-         required />
+          <div class="input-group">
+            <input type="number"
+                   class="form-input"
+                   name="age"
+                   [(ngModel)]="user.age"
+                   placeholder="Âge"
+                   required />
+          </div>
 
-  <br />
-  <input type="text"
-         name="age"
-         [(ngModel)]="user.age"
-         placeholder="age"
-         required />
+          <div class="input-group">
+            <input type="email"
+                   class="form-input"
+                   name="email"
+                   [(ngModel)]="user.email"
+                   placeholder="Adresse Email"
+                   required
+                   email
+                   #emailInput="ngModel" />
+            <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" style="color: #ff4444; font-size: 0.85rem; margin-top: 5px;">
+              <div *ngIf="emailInput.errors?.['required']">L'email est requis.</div>
+              <div *ngIf="emailInput.errors?.['email']">Format d'email invalide.</div>
+            </div>
+          </div>
 
-  <br />
+          <div class="input-group">
+            <input type="password"
+                   class="form-input"
+                   name="password"
+                   [(ngModel)]="user.password"
+                   placeholder="Mot de passe"
+                   required />
+          </div>
+          
+          <div class="input-group">
+            <label class="form-label">S'inscrire en tant que</label>
+            <select name="role" [(ngModel)]="user.role" class="form-input select-input" required>
+              <option value="member">Membre</option>
+              <option value="coach">Coach</option>
+              <option value="admin">Administrateur</option>
+            </select>
+          </div>
 
-  <input type="email"
-         name="email"
-         [(ngModel)]="user.email"
-         placeholder="Email"
-         required />
 
-  <br />
 
-  <input type="password"
-         name="password"
-         [(ngModel)]="user.password"
-         placeholder="Mot de passe"
-         required />
+          <div class="input-group">
+            <label class="form-label">Photo de profil (Optionnelle)</label>
+            <input type="file"
+                   class="form-input file-input"
+                   name="photo"
+                   (change)="onFileSelected($event)"
+                   accept="image/*" />
+          </div>
 
-  <br />
+          <button type="submit" class="btn-login" [disabled]="!registerForm.valid">
+            Créer mon compte
+          </button>
+        </form>
 
-  <!-- Choix du rôle -->
-  <select name="role" [(ngModel)]="user.role" required>
-    <option value="">Choisir un rôle</option>
-    <option value="admin">Admin</option>
-    <option value="member">Membre</option>
-    <option value="coach">Coach</option>
-  </select>
+        <!-- MESSAGE DE SUCCÈS AVEC BOUTON PDF -->
+        <div *ngIf="registrationSuccess" class="success-container">
+          <div class="success-icon">✔️</div>
+          <h3>Bienvenue chez Apex !</h3>
+          <p>Votre inscription a été enregistrée avec succès.</p>
+          <p class="info-text">Un administrateur doit valider votre compte.</p>
+          
+          <div class="action-buttons">
+            <button class="btn-pdf" (click)="downloadPDF()">
+              📄 Télécharger mon reçu PDF
+            </button>
+            
+            <button class="btn-login-secondary" (click)="goToLogin()">
+              Aller à la connexion
+            </button>
+          </div>
+        </div>
 
-  <br /><br />
-
-  <button type="submit" [disabled]="!registerForm.valid">
-    S'inscrire
-  </button>
-
-</form>
+        <div *ngIf="!registrationSuccess" class="register-link">
+          <p>Déjà membre ? <a routerLink="/login">Se connecter</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

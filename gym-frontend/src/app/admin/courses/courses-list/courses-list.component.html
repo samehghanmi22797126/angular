@@ -1,0 +1,51 @@
+<div class="header-actions">
+  <h3>Gestion des Cours</h3>
+  <button class="btn-primary" [routerLink]="['add']">+ Créer un cours</button>
+</div>
+
+<div class="admin-card">
+  <div class="table-responsive">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>Titre du cours</th>
+          <th>Coach</th>
+          <th>Horaire</th>
+          <th>Durée</th>
+          <th>Inscrits</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading">
+          <td colspan="6" class="text-center">Chargement en cours...</td>
+        </tr>
+        <tr *ngIf="!loading && courses.length === 0">
+          <td colspan="6" class="text-center">Aucun cours disponible.</td>
+        </tr>
+        <tr *ngFor="let course of courses">
+          <td>{{ course.title }}</td>
+          <td>
+            <div class="user-info">
+              <span class="user-avatar coach-avatar">{{ course.coach?.name?.charAt(0) || '?' }}</span>
+              <span class="user-name">{{ course.coach?.name || 'Non assigné' }}</span>
+            </div>
+          </td>
+          <td>{{ formatDate(course.startAt) }}</td>
+          <td>{{ course.durationMinutes }} min</td>
+          <td>{{ course.members?.length || 0 }} Membres</td>
+          <td class="text-right">
+            <div class="action-buttons">
+              <button class="btn-icon" [routerLink]="['add']" [queryParams]="{id: course.id}" title="Modifier">
+                ✏️
+              </button>
+              <button class="btn-icon delete" (click)="deleteCourse(course.id)" title="Supprimer">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

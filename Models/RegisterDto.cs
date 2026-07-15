@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace sale_sport.Models
 {
 	public class RegisterDto
@@ -11,5 +13,7 @@ namespace sale_sport.Models
 		public string? Specialty { get; set; }   // Coach
 		public int? Age { get; set; }
 		public int? SubscriptionId { get; set; }// Member
+
+		public IFormFile? Photo { get; set; }
 	}
 }

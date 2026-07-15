@@ -1,0 +1,40 @@
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+✔ Browser application bundle generation complete.
+
+Warning: src/app/coach/coach.component.html:119:56 - warning NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator.
+
+119             <div class="member-avatar">{{ member.name?.charAt(0) }}</div>
+                                                           ~~~~~~
+
+  src/app/coach/coach.component.ts:9:16
+    9   templateUrl: './coach.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component CoachComponent.
+
+
+Warning: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/admin/offres/offres.component.css exceeded maximum budget. Budget 2.00 kB was not met by 2.83 kB with a total of 4.83 kB.
+
+Warning: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/coach/coach.component.css exceeded maximum budget. Budget 2.00 kB was not met by 5.38 kB with a total of 7.38 kB.
+
+Warning: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/components/login/login.component.css exceeded maximum budget. Budget 2.00 kB was not met by 5.06 kB with a total of 7.06 kB.
+
+Warning: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/home/home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 3.61 kB with a total of 5.61 kB.
+
+Warning: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/member/member.component.css exceeded maximum budget. Budget 2.00 kB was not met by 1005 bytes with a total of 2.98 kB.
+
+Warning: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/offres/offres.component.css exceeded maximum budget. Budget 2.00 kB was not met by 5.52 kB with a total of 7.52 kB.
+
+
+
+Error: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/admin/offres/offres.component.css exceeded maximum budget. Budget 4.00 kB was not met by 845 bytes with a total of 4.83 kB.
+
+Error: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/coach/coach.component.css exceeded maximum budget. Budget 4.00 kB was not met by 3.38 kB with a total of 7.38 kB.
+
+Error: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/components/login/login.component.css exceeded maximum budget. Budget 4.00 kB was not met by 3.06 kB with a total of 7.06 kB.
+
+Error: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/home/home.component.css exceeded maximum budget. Budget 4.00 kB was not met by 1.61 kB with a total of 5.61 kB.
+
+Error: C:/Users/sameh/OneDrive/Bureau/projet angular/gym-frontend/src/app/offres/offres.component.css exceeded maximum budget. Budget 4.00 kB was not met by 3.52 kB with a total of 7.52 kB.
+
+

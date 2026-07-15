@@ -1,5 +1,251 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="animate-up">Transforme ton corps dès aujourd’hui</h1>
+      <p class="animate-up delay-1">Rejoins l'élite et dépasse tes limites avec nos équipements premium et nos coachs experts.</p>
+      <a href="#abonnements" class="btn-primary animate-up delay-2">Voir les abonnements</a>
+    </div>
+  </section>
 
-  <h1>gym Sport</h1>
-  <p>bienvenue</p>
+  <!-- Services Section -->
+  <section class="services-section" id="services">
+    <div class="section-header">
+      <h2>Nos Services</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">🏋️‍♂️</div>
+        <h3>Musculation</h3>
+        <p>Plus de 100 machines et un espace poids libres pour sculpter votre corps.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🏃‍♀️</div>
+        <h3>Cardio</h3>
+        <p>Améliorez votre endurance avec nos tapis, vélos et rameurs dernière génération.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🎯</div>
+        <h3>Coaching</h3>
+        <p>Un accompagnement personnalisé par nos experts pour atteindre vos objectifs.</p>
+      </div>
+    </div>
+  </section>
 
- 
+  <!-- Coaches Section -->
+  <section class="coaches-section" id="coachs">
+    <div class="section-header">
+      <h2>Nos Coachs Experts</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="coaches-grid">
+      <div class="coach-card">
+        <div class="coach-img-wrapper">
+          <img src="assets/img/coach1.png" alt="Coach Musculation">
+        </div>
+        <div class="coach-info">
+          <h3>Marc Boucher</h3>
+          <p class="specialty">Spécialiste Musculation</p>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-img-wrapper">
+          <img src="assets/img/coach2.png" alt="Coach Fitness">
+        </div>
+        <div class="coach-info">
+          <h3>Léa Dupont</h3>
+          <p class="specialty">Experte Fitness & Cardio</p>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=500&q=60" alt="Coach Crossfit">
+        </div>
+        <div class="coach-info">
+          <h3>Alex Martin</h3>
+          <p class="specialty">Coach Crossfit</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abonnements Section -->
+  <section class="pricing-section" id="abonnements">
+    <div class="section-header">
+      <h2>Nos Abonnements</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Basic</h3>
+        <div class="price">29€<span>/mois</span></div>
+        <ul class="benefits">
+          <li>Accès plateau musculation</li>
+          <li>Accès zone cardio</li>
+          <li>Vestiaires & douches</li>
+        </ul>
+        <button class="btn-outline">Choisir ce plan</button>
+      </div>
+      <div class="pricing-card popular">
+        <div class="badge">Plus Populaire</div>
+        <h3>Standard</h3>
+        <div class="price">49€<span>/mois</span></div>
+        <ul class="benefits">
+          <li>Avantages Basic</li>
+          <li>Cours collectifs illimités</li>
+          <li>Bilan mensuel</li>
+        </ul>
+        <button class="btn-primary">Choisir ce plan</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Premium</h3>
+        <div class="price">79€<span>/mois</span></div>
+        <ul class="benefits">
+          <li>Avantages Standard</li>
+          <li>1h de Personal Training / semaine</li>
+          <li>Accès espace détente (Sauna)</li>
+        </ul>
+        <button class="btn-outline">Choisir ce plan</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recruitment Section -->
+  <section class="recruitment-section" id="recrutement" *ngIf="jobOffers.length > 0">
+    <div class="section-header">
+      <h2>Rejoins Notre Équipe</h2>
+      <p class="subtitle">Nous recherchons des coachs passionnés pour inspirer nos membres.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="jobs-grid">
+      <div class="job-card" *ngFor="let job of jobOffers">
+        <div class="job-badge">OFFRE ACTIVE</div>
+        <h3>{{ job.title }}</h3>
+        <p>{{ job.description }}</p>
+        <div class="job-actions" *ngIf="!isAdmin">
+          <label class="btn-upload">
+            <input type="file" (change)="onFileSelected($event, job.id)" accept=".pdf" style="display: none;">
+            📄 Déposer mon CV (PDF)
+          </label>
+        </div>
+        <div class="job-actions" *ngIf="isAdmin">
+          <p style="color: #e61919; font-size: 0.9rem; font-style: italic;">Les administrateurs ne peuvent pas postuler.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos Section -->
+  <section class="videos-section" id="videos">
+    <div class="section-header">
+      <h2>Vidéos d'entraînement</h2>
+      <p class="subtitle">Découvrez les conseils et exercices de nos coachs</p>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Admin/Coach Upload Form -->
+    <div class="upload-video-form" *ngIf="isAdmin || isCoach">
+      <h3>Ajouter une nouvelle vidéo</h3>
+      <div class="form-group">
+        <input type="text" [(ngModel)]="videoTitle" placeholder="Titre de la vidéo" class="form-input">
+        <input type="file" (change)="onVideoFileSelected($event)" accept="video/*" class="form-input" style="padding: 10px;">
+        <button class="btn-primary" (click)="uploadVideo()">Mettre en ligne</button>
+      </div>
+    </div>
+
+    <div class="videos-grid">
+      <div class="video-card" *ngFor="let video of videos">
+        <video controls style="width: 100%; border-radius: 8px;">
+          <source [src]="'http://localhost:5280' + video.filePath" type="video/mp4">
+          Votre navigateur ne supporte pas la lecture de vidéos.
+        </video>
+        <h4>{{ video.title }}</h4>
+        <p>Ajouté par : {{ video.uploadedBy }}</p>
+        <button class="btn-delete" *ngIf="isAdmin || isCoach" (click)="deleteVideo(video.id)">
+          🗑️ Supprimer
+        </button>
+      </div>
+      <div *ngIf="videos.length === 0" style="text-align: center; width: 100%; color: #aaa; grid-column: 1 / -1;">
+        <p>Aucune vidéo disponible pour le moment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" id="temoignages">
+    <div class="section-header">
+      <h2>Ils Parlent de Nous</h2>
+      <div class="divider"></div>
+    </div>
+    
+    <!-- Member Review Form -->
+    <div class="review-form-container" *ngIf="isMember; else guestPrompt">
+      <h3>Partage ton expérience</h3>
+      <div class="review-form">
+        <div class="rating-input">
+          <label>Note :</label>
+          <select [(ngModel)]="newReview.rating">
+            <option [value]="5">⭐⭐⭐⭐⭐ (Excellent)</option>
+            <option [value]="4">⭐⭐⭐⭐ (Très Bien)</option>
+            <option [value]="3">⭐⭐⭐ (Bien)</option>
+            <option [value]="2">⭐⭐ (Moyen)</option>
+            <option [value]="1">⭐ (Déçu)</option>
+          </select>
+        </div>
+        <textarea [(ngModel)]="newReview.content" placeholder="Ton avis sur la salle, les coachs, l'ambiance..."></textarea>
+        <button class="btn-primary" (click)="submitReview()">Publier mon avis</button>
+      </div>
+    </div>
+
+    <!-- Guest Prompt -->
+    <ng-template #guestPrompt>
+      <div class="review-form-container guest-mode">
+        <h3>Partage ton expérience</h3>
+        <p>Tu veux donner ton avis ? <a (click)="goToLogin()" style="color: #e61919; cursor: pointer; text-decoration: underline;">Connecte-toi</a> pour partager ton expérience avec la communauté !</p>
+      </div>
+    </ng-template>
+
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card" *ngFor="let review of reviews">
+        <div class="stars">{{ '★'.repeat(review.rating) }}{{ '☆'.repeat(5 - review.rating) }}</div>
+        <p class="quote">"{{ review.content }}"</p>
+        <div class="client-name">- {{ review.memberName }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map & Location Section -->
+  <section class="location-section" id="contact">
+    <div class="section-header">
+      <h2>Où nous trouver ?</h2>
+      <div class="divider"></div>
+    </div>
+    
+    <div class="location-content">
+      <div class="map-wrapper">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3190.76342898!2d10.1873132!3d36.8992928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd34ba98485777%3A0xc622649a15998150!2sTEK-UP%20University!5e0!3m2!1sfr!2stn!4v1713026000000!5m2!1sfr!2stn"
+          width="100%"
+          height="450"
+          style="border:0; border-radius: 12px;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+      
+      <div class="contact-card-home">
+        <h3>APEX PERFORMANCE</h3>
+        <p class="address">📍 11-13 Rue de l'Artisanat, El Ghazala, Ariana</p>
+        <p class="info">📞 +216 71 800 900</p>
+        <p class="info">📧 contact@apexperformance.tn</p>
+        <p class="hours">🕒 Lun - Ven : 06:00 - 22:00</p>
+        <p class="hours">🕒 Sam - Dim : 08:00 - 20:00</p>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=TEK-UP+University" target="_blank" class="btn-primary">Y ALLER</a>
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -1,35 +1,197 @@
-<div class="container">
+<div class="coach-dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <h2>GYM<span>SPORT</span> Coach</h2>
+      </div>
+      <div class="user-info">
+        <div class="avatar">
+          <img *ngIf="coach?.photoUrl" [src]="'http://localhost:5280/uploads/profiles/' + coach!.photoUrl" alt="Profile" class="profile-photo"/>
+          <span *ngIf="!coach?.photoUrl">{{ coach?.name?.charAt(0) || 'C' }}</span>
+        </div>
+        <div class="user-details">
+          <p class="user-name">{{ coach?.name }}</p>
+          <p class="user-role">Coach sportif</p>
+          <p class="user-email">{{ coach?.email }}</p>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M3 9L12 3L21 9L12 15L3 9Z" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        Tableau de bord
+      </a>
+      <a href="#" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5" />
+          <path d="M5 20V19C5 15.1 8.1 12 12 12C15.9 12 19 15.1 19 19V20" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        Mes membres
+      </a>
+      <a href="#" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5" />
+          <path d="M8 12H16" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        Mes cours
+      </a>
+      <button (click)="logout()" class="logout-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M9 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H9" stroke="currentColor" stroke-width="1.5" />
+          <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M21 12H9" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        Déconnexion
+      </button>
+    </nav>
+  </aside>
 
-  <h2>Membres</h2>
-  <form [formGroup]="memberForm" (ngSubmit)="addMember()">
-    <input formControlName="name" placeholder="Nom">
-    <input formControlName="age" type="number" placeholder="Age">
-    <input formControlName="email" placeholder="Email">
-    <input formControlName="password" placeholder="Mot de passe">
-    <button type="submit">Ajouter membre</button>
-  </form>
+  <main class="main-content">
+    <div class="content-header">
+      <h1>Tableau de bord Coach</h1>
+      <p>Bienvenue {{ coach?.name }} !</p>
+    </div>
 
-  <ul>
-    <li *ngFor="let m of members">
-      {{ m.name }} ({{ m.age }} ans) - {{ m.email }}
-    </li>
-  </ul>
+    <div *ngIf="loading" class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Chargement...</p>
+    </div>
 
-  <hr>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
 
-  <h2>Cours</h2>
-  <form [formGroup]="courseForm" (ngSubmit)="addCourse()">
-    <input formControlName="title" placeholder="Titre du cours">
-    <input formControlName="description" placeholder="Description">
-    <input formControlName="startAt" type="datetime-local">
-    <input formControlName="durationMinutes" type="number" placeholder="Durée (minutes)">
-    <button type="submit">Ajouter cours</button>
-  </form>
+    <div *ngIf="!loading">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>{{ members.length }}</h3>
+          <p>Membres</p>
+        </div>
+        <div class="stat-card">
+          <h3>{{ courses.length }}</h3>
+          <p>Cours</p>
+        </div>
+      </div>
 
-  <ul>
-    <li *ngFor="let c of courses">
-      {{ c.title }} - {{ c.description }} - {{ c.startAt }} ({{ c.durationMinutes }} min)
-    </li>
-  </ul>
+      <!-- Formulaire Modifier Membre -->
+      <div class="form-card" *ngIf="editingMemberId">
+        <h2>✏️ Modifier un membre</h2>
+        <form [formGroup]="memberForm" (ngSubmit)="saveMember()">
+          <div class="form-group">
+            <input type="text" formControlName="name" placeholder="Nom complet" required>
+          </div>
+          <div class="form-group">
+            <input type="email" formControlName="email" placeholder="Email" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+               <label>Âge</label>
+               <input type="number" formControlName="age" placeholder="Âge" required>
+            </div>
+            <div class="form-group">
+               <label>Mot de passe</label>
+               <input type="password" formControlName="password" placeholder="Retapez le mot de passe" required>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Mettre à jour</button>
+            <button type="button" class="btn-cancel" (click)="cancelEditMember()" style="margin-left: 10px; background: #6b7280;">Annuler</button>
+          </div>
+        </form>
+      </div>
 
+      <!-- Liste de TOUS les membres de la salle -->
+      <div class="members-section">
+        <h2>🏋️ Membres de la salle ({{ availableMembers.length }} disponibles)</h2>
+        <div *ngIf="availableMembers.length === 0" class="empty-state">Tous les membres sont déjà dans votre équipe, ou aucun membre n'est inscrit.</div>
+        <div class="members-grid" *ngIf="availableMembers.length > 0">
+          <div *ngFor="let member of availableMembers" class="member-card">
+            <div class="member-avatar">{{ member.name?.charAt(0) || '?' }}</div>
+            <div class="member-info">
+              <strong>{{ member.name }}</strong><br>
+              {{ member.email }}<br>
+              {{ member.age }} ans
+            </div>
+            <button (click)="assignMember(member.id)" title="Ajouter à mon équipe" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); border-radius: 6px; width: 32px; height: 32px; cursor: pointer; color: #10b981; font-weight: bold; font-size: 1.2rem;">➕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste des membres de l'équipe -->
+      <div class="members-section" style="margin-top: 2rem; border-top: 2px solid rgba(255,255,255,0.05); padding-top: 2rem;">
+        <h2>⭐ Mon équipe ({{ members.length }})</h2>
+        <div *ngIf="members.length === 0" class="empty-state">Vous n'avez assigné aucun membre à votre équipe.</div>
+        <div class="members-grid" *ngIf="members.length > 0">
+          <div *ngFor="let member of members" class="member-card">
+            <div class="member-avatar">{{ member.name?.charAt(0) }}</div>
+            <div class="member-info">
+              <strong>{{ member.name }}</strong><br>
+              {{ member.email }}<br>
+              {{ member.age }} ans
+            </div>
+            <div class="actions" style="display: flex; gap: 5px;">
+              <button (click)="editMember(member)" class="edit-btn" title="Modifier les infos du membre" style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">✏️</button>
+              <button (click)="removeMemberFromTeam(member.id)" class="delete-btn" title="Retirer de mon équipe">❌</button>
+              <button (click)="deleteMemberCompletely(member.id)" class="delete-btn" title="Supprimer DÉFINITIVEMENT">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire Ajouter Cours -->
+      <div class="form-card">
+        <h2>📚 {{ editingCourseId ? 'Modifier' : 'Créer' }} un cours</h2>
+        <form [formGroup]="courseForm" (ngSubmit)="saveCourse()">
+          <div class="form-group">
+            <input type="text" formControlName="title" placeholder="Titre du cours" required>
+          </div>
+          <div class="form-group">
+            <textarea formControlName="description" placeholder="Description du cours" rows="3" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date et heure</label>
+              <input type="datetime-local" formControlName="startAt" required>
+            </div>
+            <div class="form-group">
+              <label>Durée (minutes)</label>
+              <input type="number" formControlName="durationMinutes" placeholder="60" required>
+            </div>
+            <div class="form-group">
+              <label>Capacité (Places max)</label>
+              <input type="number" formControlName="maxParticipants" placeholder="10" required>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">{{ editingCourseId ? 'Mettre à jour' : 'Créer le cours' }}</button>
+            <button *ngIf="editingCourseId" type="button" class="btn-cancel" (click)="cancelEdit()" style="margin-left: 10px; background: #6b7280;">Annuler</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Liste des cours -->
+      <div class="courses-section">
+        <h2>📚 Mes cours ({{ courses.length }})</h2>
+        <div *ngIf="courses.length === 0" class="empty-state">Aucun cours</div>
+        <div class="courses-grid" *ngIf="courses.length > 0">
+          <div *ngFor="let course of courses" class="course-card">
+            <div class="course-info">
+              <strong>{{ course.title }}</strong><br>
+              {{ course.description }}<br>
+              📅 {{ formatDate(course.startAt) }}<br>
+              ⏱️ {{ course.durationMinutes }} min<br>
+              👥 {{ getRemainingSpots(course) }} places restantes sur {{ getMaxParticipants(course) }}
+            </div>
+            <div class="actions" style="display: flex; gap: 5px;">
+              <button (click)="editCourse(course)" class="edit-btn" title="Modifier" style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">✏️</button>
+              <button (click)="deleteCourse(course.id)" class="delete-btn" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>

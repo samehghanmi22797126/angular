@@ -1,1 +1,129 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --primary-red: #e61919;
+  --primary-red-hover: #ff3333;
+  --dark-bg: #0b0b0b;
+  --dark-surface: #1a1a1a;
+  --dark-surface-hover: #262626;
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--dark-bg);
+  color: var(--text-main);
+  font-family: 'Inter', 'Roboto', sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.divider {
+  height: 4px;
+  width: 60px;
+  background-color: var(--primary-red);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Global Buttons */
+.btn-primary, .btn-outline {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: none;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--primary-red);
+  color: white;
+  box-shadow: 0 4px 15px rgba(230, 25, 25, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(230, 25, 25, 0.5);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid var(--primary-red);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-red);
+  transform: translateY(-2px);
+}
+
+/* Animations helpers */
+.animate-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s forwards ease-out;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Effets Hover et Focus pour TOUS les formulaires --- */
+input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]),
+select,
+textarea,
+.form-input,
+.form-control {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):hover,
+select:hover,
+textarea:hover,
+.form-input:hover,
+.form-control:hover {
+  background-color: #262626 !important; /* Couleur au passage de la souris */
+  border-color: var(--primary-red) !important;
+}
+
+input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus,
+.form-input:focus,
+.form-control:focus {
+  background-color: #333333 !important; /* Couleur pendant la saisie */
+  border-color: #28a745 !important; /* Bordure verte */
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.5) !important; /* Ombre verte */
+  outline: none !important;
+}
